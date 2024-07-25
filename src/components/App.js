@@ -6,7 +6,7 @@ function App() {
   return (
     <React.Fragment>
       <Header />
-      {/* <TheBody /> */}
+      <TheBody />
     </React.Fragment>
   );
 }
