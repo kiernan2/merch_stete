@@ -7,23 +7,38 @@ class TheBody extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisiblePage: false
+      formVisiblePage: true,
+      mainOrderList: []
     };
+  }
+
+  handleClick = () => {
+    this.setState(prevState => ({
+      formVisiblePage: !prevState.formVisiblePage
+    }));
+  }
+
+  handleAddingNewOrderToList = (newOrder) => {
+    const newMainOrderList = this.state.mainOrderList.concat(newOrder);
+    this.setState({
+      mainOrderList: newMainOrderList,
+      formVisiblePage: true
+    });
   }
 
   render() {
     let buttonText = null;
     let currentlyVisibleState = null;
     if (this.state.formVisiblePage) {
-      buttonText = "";
-      currentlyVisibleState = <Orders />;
+      buttonText = "Create";
+      currentlyVisibleState = <Orders orders={this.state.mainOrderList} />
     } else {
-      buttonText = "";
-      currentlyVisibleState = <Create />;
+      buttonText = "List";
+      currentlyVisibleState = <Create onNewOrders={this.handleAddingNewOrderToList} />
     }
     return (
       <React.Fragment>
-        <button onClick={this.handleClick}></button>
+        <button onClick={this.handleClick}>{buttonText}</button>
         {currentlyVisibleState}
       </React.Fragment>
     );

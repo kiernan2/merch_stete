@@ -1,10 +1,10 @@
 import React from "react";
 
-function Header(){
+function Header() {
   return (
-    <header class="container">
-      <div class="row">
-        <div class="col">
+    <header className="container">
+      <div className="row">
+        <div className="col">
           <p>boo</p>
         </div>
       </div>
