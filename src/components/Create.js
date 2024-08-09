@@ -8,7 +8,7 @@ function Create(props) {
     event.preventDefault();
     props.onNewOrders({
       name: event.target.name.value,
-      quantity: event.target.quantity.value,
+      quantity: parseInt(event.target.quantity.value),
       description: event.target.description.value,
       id: v4(),
     });
@@ -21,15 +21,19 @@ function Create(props) {
           type="text"
           name="name"
           placeholder="name here"
+          defaultValue="noInput"
         />
         <input 
           type="text"
           name="description"
           placeholder="description"
+          defaultValue="noInput"
         />
         <input
-        type="number"
-        name="quantity"
+          type="number"
+          name="quantity"
+          placeholder="0"
+          defaultValue="0"
         />
         <button type="submit">submit</button>
       </form>

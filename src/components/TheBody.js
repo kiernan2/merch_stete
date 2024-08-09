@@ -26,12 +26,25 @@ class TheBody extends React.Component {
     });
   }
 
+  handleBuy = () => {
+
+    console.log("Give me IT")
+    // let newState = {
+    //   quantity: this.state.quantity + 1,
+    //   name: this.string,
+    //   description: this.string
+    // }
+    // this.setState({
+    //   newState
+    // })
+  }
+
   render() {
     let buttonText = null;
     let currentlyVisibleState = null;
     if (this.state.formVisiblePage) {
       buttonText = "Create";
-      currentlyVisibleState = <Orders orders={this.state.mainOrderList} />
+      currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy} />
     } else {
       buttonText = "List";
       currentlyVisibleState = <Create onNewOrders={this.handleAddingNewOrderToList} />

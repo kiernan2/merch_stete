@@ -10,14 +10,17 @@ function Orders(props) {
         <Order name={order.name}
           quantity={order.quantity}
           description={order.description}
-          key={index} />
+          key={index}
+          buttonFunc = {props.onHandleBuy}
+          />
       )}
     </React.Fragment>
   )
 }
 
 Orders.propTypes = {
-  orders: PropTypes.array
+  orders: PropTypes.array,
+  onHandleBuy: PropTypes.func
 };
 
 export default Orders;
