@@ -6,17 +6,18 @@ function Orders(props) {
   return (
     <React.Fragment>
       <hr/>
-      {props.orders.map((order, index) =>
+      {props.orders.map((order) =>
         <Order name={order.name}
-          quantity={order.quantity}
+          count={order.count}
           description={order.description}
-          key={index}
-          buttonFunc = {props.onHandleBuy}
-          />
+          key={order.id}
+          id={order.id}
+          buttonFunc={props.onHandleBuy}
+        />
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 Orders.propTypes = {
   orders: PropTypes.array,

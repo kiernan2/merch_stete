@@ -8,11 +8,13 @@ class TheBody extends React.Component {
     super(props);
     this.state = {
       formVisiblePage: true,
-      mainOrderList: []
+      mainOrderList: [],
+      selectedOrder: null,
+      editing: false
     };
   }
 
-  handleClick = () => {
+  menuToggle = () => {
     this.setState(prevState => ({
       formVisiblePage: !prevState.formVisiblePage
     }));
@@ -26,32 +28,41 @@ class TheBody extends React.Component {
     });
   }
 
-  handleBuy = () => {
-
-    console.log("Give me IT")
-    // let newState = {
-    //   quantity: this.state.quantity + 1,
-    //   name: this.string,
-    //   description: this.string
-    // }
-    // this.setState({
-    //   newState
-    // })
+  handleBuy = (orderId) => {
+    const foundOrder = this.state.mainOrderList.find(order => order.id == orderId);
+    const updatedOrder = { ...foundOrder, count: foundOrder.count -1 }
+    const editingMainOrdersList = this.state.mainOrderList
+      .filter(order => order.id !== orderId)
+      .concat(updatedOrder);
+    this.setState({
+      mainOrderList: editingMainOrdersList
+    });
   }
-
+  
+    // handleEditingTicketInList = (ticketToEdit) => {
+    //   const editingMainTicketList = this.state.mainTicketList
+    //     .filter(ticket => ticket.id !== this.state.selectedTicket.id)
+    //     .concat(ticketToEdit);
+    //   this.setState({
+    //     mainTicketList: editingMainTicketList,
+    //     editing: false,
+    //     selectedTicket: null
+    //   });
+    // }
+    
   render() {
     let buttonText = null;
     let currentlyVisibleState = null;
     if (this.state.formVisiblePage) {
       buttonText = "Create";
-      currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy} />
+      currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy}/>
     } else {
       buttonText = "List";
-      currentlyVisibleState = <Create onNewOrders={this.handleAddingNewOrderToList} />
+      currentlyVisibleState = <Create orderList={this.state.mainOrderList} addNewOrderToList={this.handleAddingNewOrderToList}/>
     }
     return (
       <React.Fragment>
-        <button onClick={this.handleClick}>{buttonText}</button>
+        <button onClick={this.menuToggle}>{buttonText}</button>
         {currentlyVisibleState}
       </React.Fragment>
     );

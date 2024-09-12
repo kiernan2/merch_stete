@@ -5,9 +5,9 @@ function Order(props) {
   
   return(
     <React.Fragment>
-      <h3>{props.name} - {props.quantity}</h3>
+      <h3>{props.name} - {props.count}</h3>
       <p><em>{props.description}</em></p>
-      <button onClick={props.buttonFunc}>Buy</button>
+      <button onClick={() => props.buttonFunc(props.id)}>Buy</button>
       <hr/>
     </React.Fragment>
   )
@@ -15,8 +15,9 @@ function Order(props) {
 
 Order.propTypes = {
   name: PropTypes.string,
-  quantity: PropTypes.number,
+  count: PropTypes.number,
   description: PropTypes.string,
+  id: PropTypes.string,
   buttonFunc: PropTypes.func
 };
 
