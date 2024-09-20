@@ -1,6 +1,7 @@
 import React from "react";
 import Orders from "./Orders";
 import Create from "./Create";
+import Edit from "./Edit";
 
 class TheBody extends React.Component {
 
@@ -28,9 +29,17 @@ class TheBody extends React.Component {
     });
   }
 
+  handleEditingOrderOnList = (newOrder) => {
+    const resetOrder = { ...this.state.selectedOrder, ...newOrder }
+    const editingMainOrdersList = this.state.mainOrderList
+      .filter(order => order.id !== this.state.selectedOrder.id)
+      .concat(resetOrder);
+    this.setState({ editing: false, mainOrderList: editingMainOrdersList })
+  }
+
   handleBuy = (orderId) => {
-    const foundOrder = this.state.mainOrderList.find(order => order.id == orderId);
-    const updatedOrder = { ...foundOrder, count: foundOrder.count -1 }
+    const foundOrder = this.state.mainOrderList.find(order => order.id === orderId);
+    const updatedOrder = { ...foundOrder, count: foundOrder.count - 1 }
     const editingMainOrdersList = this.state.mainOrderList
       .filter(order => order.id !== orderId)
       .concat(updatedOrder);
@@ -38,27 +47,36 @@ class TheBody extends React.Component {
       mainOrderList: editingMainOrdersList
     });
   }
-  
-    // handleEditingTicketInList = (ticketToEdit) => {
-    //   const editingMainTicketList = this.state.mainTicketList
-    //     .filter(ticket => ticket.id !== this.state.selectedTicket.id)
-    //     .concat(ticketToEdit);
-    //   this.setState({
-    //     mainTicketList: editingMainTicketList,
-    //     editing: false,
-    //     selectedTicket: null
-    //   });
-    // }
-    
+
+  handleEdit = (orderId) => {
+    const foundOrder = this.state.mainOrderList.find(order => order.id === orderId);
+    this.setState({ selectedOrder: foundOrder })
+    this.setState({ editing: true })
+  }
+
+  // handleEditingTicketInList = (ticketToEdit) => {
+  //   const editingMainTicketList = this.state.mainTicketList
+  //     .filter(ticket => ticket.id !== this.state.selectedTicket.id)
+  //     .concat(ticketToEdit);
+  //   this.setState({
+  //     mainTicketList: editingMainTicketList,
+  //     editing: false,
+  //     selectedTicket: null
+  //   });
+  // }
+
   render() {
     let buttonText = null;
     let currentlyVisibleState = null;
-    if (this.state.formVisiblePage) {
+    if (this.state.editing) {
+      currentlyVisibleState = <Edit theOrder={this.state.selectedOrder} editOrderOnList={this.handleEditingOrderOnList}></Edit>
+    }
+    else if (this.state.formVisiblePage) {
       buttonText = "Create";
-      currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy}/>
+      currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy} onHandleEdit={this.handleEdit} />
     } else {
       buttonText = "List";
-      currentlyVisibleState = <Create orderList={this.state.mainOrderList} addNewOrderToList={this.handleAddingNewOrderToList}/>
+      currentlyVisibleState = <Create orderList={this.state.mainOrderList} addNewOrderToList={this.handleAddingNewOrderToList} />
     }
     return (
       <React.Fragment>

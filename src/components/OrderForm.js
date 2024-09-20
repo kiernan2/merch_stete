@@ -7,15 +7,18 @@ function OrderFrom(props) {
       <form onSubmit={props.formSubmissionHandler}>
         <input
           type="text"
-          name="names"
+          name="name"
+          defaultValue={props?.prvOrder?.name || ""}
           placeholder="noInput" />
         <input
           type="text"
           name="description"
+          defaultValue={props?.prvOrder?.description || ""}
           placeholder="noInput" />
         <input
           type="number"
           name="count"
+          defaultValue={props?.prvOrder?.count || 0}
           placeholder="0" />
         <button type="submit">{props.buttonText}</button>
       </form>
@@ -25,7 +28,8 @@ function OrderFrom(props) {
 
 OrderFrom.propTypes = {
   formSubmissionHandler: PropTypes.func,
-  buttonText: PropTypes.string
+  buttonText: PropTypes.string,
+  prvOrder: PropTypes.object
 };
 
 export default OrderFrom;

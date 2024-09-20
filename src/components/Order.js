@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Order(props) {
-  
-  return(
+  return (
     <React.Fragment>
       <h3>{props.name} - {props.count}</h3>
       <p><em>{props.description}</em></p>
-      <button onClick={() => props.buttonFunc(props.id)}>Buy</button>
-      <hr/>
+      <button onClick={() => props.buyFunc(props.id)}>Buy</button>
+      <button onClick={() => props.editFunc(props.id)}>Edit</button>
+      <hr />
     </React.Fragment>
   )
 }
@@ -18,7 +18,8 @@ Order.propTypes = {
   count: PropTypes.number,
   description: PropTypes.string,
   id: PropTypes.string,
-  buttonFunc: PropTypes.func
+  buyFunc: PropTypes.func,
+  editFunc: PropTypes.func
 };
 
 export default Order;

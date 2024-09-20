@@ -12,7 +12,8 @@ function Orders(props) {
           description={order.description}
           key={order.id}
           id={order.id}
-          buttonFunc={props.onHandleBuy}
+          buyFunc={props.onHandleBuy}
+          editFunc={props.onHandleEdit}
         />
       )}
     </React.Fragment>
@@ -21,7 +22,8 @@ function Orders(props) {
 
 Orders.propTypes = {
   orders: PropTypes.array,
-  onHandleBuy: PropTypes.func
+  onHandleBuy: PropTypes.func,
+  onHandleEdit: PropTypes.func
 };
 
 export default Orders;

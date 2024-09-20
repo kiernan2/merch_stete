@@ -1,32 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OrderFrom from "./OrderForm";
-import { v4 } from "uuid";
 
+function Edit(props){
 
-function Create(props){
-
-  function addNewOrderToList(event){
+  function editOrderOnList(event){
     event.preventDefault();
-    props.addNewOrderToList({
+    props.editOrderOnList({
       name: event.target.name.value,
       description: event.target.description.value,
-      count: parseInt(event.target.count.value),
-      id: v4(),
+      count: parseInt(event.target.count.value)
     });
   }
 
   return (
     <React.Fragment>
       <OrderFrom
-        formSubmissionHandler={addNewOrderToList}
+        formSubmissionHandler={editOrderOnList}
+        prvOrder={props.theOrder}
         buttonText="Help" />
     </React.Fragment>
   );
 }
 
-Create.propTypes = {
-  addNewOrderToList: PropTypes.func
+Edit.propTypes = {
+  editOrderOnList: PropTypes.func,
+  theOrder: PropTypes.object
 };
 
-export default Create;
+export default Edit;
