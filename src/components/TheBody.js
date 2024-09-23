@@ -16,9 +16,17 @@ class TheBody extends React.Component {
   }
 
   menuToggle = () => {
-    this.setState(prevState => ({
-      formVisiblePage: !prevState.formVisiblePage
-    }));
+    if (this.state.selectedOrder != null) {
+      this.setState({
+        formVisiblePage: true,
+        selectedOrder: null,
+        editing: false
+      })
+    } else {
+      this.setState(prevState => ({
+        formVisiblePage: !prevState.formVisiblePage
+      }));
+    }
   }
 
   handleAddingNewOrderToList = (newOrder) => {
@@ -40,6 +48,9 @@ class TheBody extends React.Component {
   handleBuy = (orderId) => {
     const foundOrder = this.state.mainOrderList.find(order => order.id === orderId);
     const updatedOrder = { ...foundOrder, count: foundOrder.count - 1 }
+    if (updatedOrder.count < 0) {
+      return;
+    }
     const editingMainOrdersList = this.state.mainOrderList
       .filter(order => order.id !== orderId)
       .concat(updatedOrder);
@@ -54,24 +65,13 @@ class TheBody extends React.Component {
     this.setState({ editing: true })
   }
 
-  // handleEditingTicketInList = (ticketToEdit) => {
-  //   const editingMainTicketList = this.state.mainTicketList
-  //     .filter(ticket => ticket.id !== this.state.selectedTicket.id)
-  //     .concat(ticketToEdit);
-  //   this.setState({
-  //     mainTicketList: editingMainTicketList,
-  //     editing: false,
-  //     selectedTicket: null
-  //   });
-  // }
-
   render() {
     let buttonText = null;
     let currentlyVisibleState = null;
     if (this.state.editing) {
+      buttonText = "Back";
       currentlyVisibleState = <Edit theOrder={this.state.selectedOrder} editOrderOnList={this.handleEditingOrderOnList}></Edit>
-    }
-    else if (this.state.formVisiblePage) {
+    } else if (this.state.formVisiblePage) {
       buttonText = "Create";
       currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy} onHandleEdit={this.handleEdit} />
     } else {
