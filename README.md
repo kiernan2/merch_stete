@@ -1,4 +1,4 @@
-# 
+# Merch State
 
 #### Example react site made with bootstrap for learning purposes
 
@@ -14,7 +14,7 @@
 
 ## Description
 Example react site made with bootstrap for learning purposes
-Basically just a list you can put different problems into then either edit or solve those problems
+Keeps track of different merchandise and chords when a purchase is made
 
 ## Setup/Installation Requirements
 
@@ -26,7 +26,7 @@ Basically just a list you can put different problems into then either edit or so
 
 ## Known Bugs
 
-* _N/a ..._
+* _N/a_
 
 ## License
 
