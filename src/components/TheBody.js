@@ -76,7 +76,7 @@ class TheBody extends React.Component {
       currentlyVisibleState = <Orders orders={this.state.mainOrderList} onHandleBuy={this.handleBuy} onHandleEdit={this.handleEdit} />
     } else {
       buttonText = "List";
-      currentlyVisibleState = <Create orderList={this.state.mainOrderList} addNewOrderToList={this.handleAddingNewOrderToList} />
+      currentlyVisibleState = <Create addNewOrderToList={this.handleAddingNewOrderToList} />
     }
     return (
       <React.Fragment>
