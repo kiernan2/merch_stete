@@ -2,6 +2,9 @@ import React from "react";
 import Orders from "./Orders";
 import Create from "./Create";
 import Edit from "./Edit";
+import { connect } from "react-redux";
+import { type } from "@testing-library/user-event/dist/type";
+// import { type } from "@testing-library/user-event/dist/type"; idk if this is Important
 
 class TheBody extends React.Component {
 
@@ -30,11 +33,20 @@ class TheBody extends React.Component {
   }
 
   handleAddingNewOrderToList = (newOrder) => {
-    const newMainOrderList = this.state.mainOrderList.concat(newOrder);
+    const { dispatch } = this.props;
+    const { id, names, location, issue } = newOrder
+    const action = {
+      type: 'ADD_TICKET',
+      id: id,
+      names: names,
+      location: location,
+      issue: issue,
+    }
+    dispatch(action);
     this.setState({
-      mainOrderList: newMainOrderList,
-      formVisiblePage: true
-    });
+      editing: false,
+      selectedOrder: null
+    })
   }
 
   handleEditingOrderOnList = (newOrder) => {
@@ -86,5 +98,13 @@ class TheBody extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    mainOrderList: state
+  }
+}
+
+TheBody = connect(mapStateToProps)(TheBody);
 
 export default TheBody;
